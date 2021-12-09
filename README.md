@@ -2,7 +2,7 @@
 
 Game developers, welcome! Two things that you may want to do:
 
-1) ⭐⭐ please star [our repo](https://github.com/weiks/poq-oauth) ⭐⭐
+1) ⭐⭐ please star this repo ⭐⭐
 
 2) get started with the PoQ OAuth API!
 
