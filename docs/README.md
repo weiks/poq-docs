@@ -6,7 +6,7 @@ The OAuth API allows developers to use the OAuth2 protocol and grant their 3rd p
 
 Any `PoQ` user can create a Quarters app. Your account must have been created from [https://www.poq.gg/](https://www.poq.gg/). Once that is done, head to [https://pocketfulofquarters.com/apps/new](https://pocketfulofquarters.com/apps/new), and fill the self-explanatory creation form:
 
-![App creation form](medias/oauth/fill_form.png)
+![App creation form](medias/fill_form.png)
 
 After which you'll be taken to your app's page _(`https://pocketfulofquarters.com/apps/<your_app_id>`)_, where you will find your public and secret keys:
 
