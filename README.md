@@ -6,7 +6,7 @@ Game developers, welcome! Two things that you may want to do:
 
 2) get started with the PoQ OAuth API!
 
-# PoQ - OAuth API
+# OAuth API
 
 The OAuth API allows developers to use the OAuth2 protocol and grant their 3rd party application full or partial access to a `Pocketful Of Quarters` (`PoQ`) user account. This page will guide you through the integration process.
 
