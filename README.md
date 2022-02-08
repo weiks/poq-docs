@@ -454,3 +454,102 @@ curl -H "Authorization: Bearer <your-token>" \
 #  `id`: The same as the user id
 #  `vip`: Whether the user joined the event as a VIP or not
 ```
+
+---
+
+### `POST /v1/nft/changeDeveloperStatus`
+
+Created NFT Collection with given name and symbol
+
+- Scope:
+
+  - user -> app: `nft`;
+  - app -> user: none;
+
+- Parameters:
+
+| Name          | Type    | Description                                            |
+| ------------- | ------- | ------------------------------------------------------ |
+| `status`  | boolean | New Status For Developer. |
+| `userId` | string  | UserId of user whose status need to changed.                |
+|               |         |                                                        |
+
+- Code example:
+
+```sh
+# /!\ On Windows, escape the double-quotes around the payload's fields
+# /!\ On Windows 10, the powershell command `curl` isn't the "actual" curl
+
+# Create New Collection
+curl -X POST \
+  -H "Authorization: Bearer <your-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"status":true ,"userId":'58uty'}' \
+  https://www.poq.gg/api/v1/nft/changeDeveloperStatus
+
+
+#  Response: { done, status}
+# `status`: new status for user 
+```
+
+
+---
+
+### `POST /api/v1/nft/create/collection`
+
+Created NFT Collection with given name and symbol
+
+- Scope:
+
+  - user -> app: `nft`;
+  - app -> user: none;
+
+- Parameters:
+
+| Name          | Type    | Description                                            |
+| ------------- | ------- | ------------------------------------------------------ |
+| `collectionName`  | string | Name of your NFT Collection. |
+| `collectionSymbol`  | string | Symbol of your NFT Collection. |
+| `description` | string  |  A label for the transaction.                |
+|               |         |                                                        |
+
+- Code example:
+
+```sh
+# /!\ On Windows, escape the double-quotes around the payload's fields
+# /!\ On Windows 10, the powershell command `curl` isn't the "actual" curl
+
+# Create New Collection
+curl -X POST \
+  -H "Authorization: Bearer <your-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"collectionName":'MyCollection',"collectionSymbol":'MyCol'","description":'My First NFT Collection'}' \
+  https://www.poq.gg/api/v1/create/collection
+
+
+#  Response: { done, collectionName, collectionSymbol }
+# `collectionName`: collectionName given by user
+# `collectionSymbol`: collectionSymbol given by user
+```
+
+---
+
+### `GET api/v1/nft/getCollections`
+
+Query collection indexes for particular user participant
+
+- Scope: `nft`
+
+- Code example:
+
+```sh
+
+# Get the collection indexes of participant
+curl -H "Authorization: Bearer <your-token>" \
+  https://www.poq.gg/api/v1/nft/getCollections
+
+#  Response: { collectionIds, done:true }
+#  `collectionIds`: NFT collectionIndexes created for user
+```
+
+
