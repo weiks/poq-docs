@@ -446,3 +446,4 @@ curl -H "Authorization: Bearer <your-token>" \
 #  `id`: The same as the user id
 #  `vip`: Whether the user joined the event as a VIP or not
 ```
+fake commit
