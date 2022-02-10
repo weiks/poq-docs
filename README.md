@@ -1,6 +1,6 @@
 # PoQ - Developer Resources
 
-Game developers, welcome! Two things that you may want to do:
+Game developers, welcome!
 
 1. ⭐⭐ Please star this repo ⭐⭐
 
