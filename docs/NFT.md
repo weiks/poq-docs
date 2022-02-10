@@ -10,6 +10,10 @@ If you feel anything in this guide needs further explanation, please open an iss
 
 Our offering is built on top of the NFT support on the [Klaytn blockchain](https://www.klaytn.com/). For those interested in a deeper understanding of how your NFTs are actually being recorded on-chain, you can see the Klaytn Improvement Proposal (KIP) that standardizes their support of NFTs [here](https://kips.klaytn.com/KIPs/kip-17). However, no deep understanding is required to start utilizing NFTs in your own games!
 
+## Prerequisites
+
+You will first need to set up authentication with our [Oauth API](./oauth-api.md) to receive a valid Auth token before interacting with this API.
+
 ## NFT API
 
 ---
