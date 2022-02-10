@@ -10,7 +10,7 @@ having to text search key words in multiple Discord conversations ...
 
 `event` is the generic word used to refer to the tournaments played on the app. For legacy reasons, you may find the words `event`, `tournament` and `scrim` used interchangeably in the code and comments.
 
-### Hosts:
+### Hosts
 
 Any user can create their own event for free, after they've participated to at least five events. This limitation has been introduced to counter a spam attack we've had to face in 2020 (summer I think ?).
 
@@ -22,7 +22,7 @@ There are three different levels of privileges for hosts, from lower to higher:
 
 // TODO list privileges.
 
-### Allocated quarters:
+### Allocated quarters
 
 Affiliates and partners may be granted a given `allocation`, which is an amount of Quarters they can use at their own discretion for the only purpose of boosting their events' pots.
 
