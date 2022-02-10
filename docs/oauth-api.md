@@ -118,8 +118,8 @@ Example response:
 ### 6. Putting it all together
 
 - Create a new development app for yourself:
-  https://sandbox.pocketfulofquarters.com/apps/new
-- Use http://localhost:7777 as the App Url;
+  `https://sandbox.pocketfulofquarters.com/apps/new`
+- Use `http://localhost:7777` as the App Url;
 - Save the following code as `test.js`:
 
 ```javascript
@@ -201,7 +201,7 @@ npm install got express
 node test.js
 ```
 
-- Open http://localhost:7777 in your browser, and click "connect". Authorize the app, and it will show the results of the API call that look something like this:
+- Open `http://localhost:7777` in your browser, and click "connect". Authorize the app, and it will show the results of the API call that look something like this:
 
 ```json
 {
@@ -213,7 +213,7 @@ node test.js
 
 - When you are ready to go to production, please repeat these steps but:
 
-  a) Use https://pocketfulofquarters.com/apps/new to create a production app;
+  a) Use `https://pocketfulofquarters.com/apps/new` to create a production app;
 
   b) In demo.js, replace LINK with:
 
