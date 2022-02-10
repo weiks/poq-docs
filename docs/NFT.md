@@ -45,7 +45,7 @@ Created NFT Collection with given name and symbol
 curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
-  -d '{"status":true ,"userId":'58uty'}' \
+  -d '{"status":true ,"userId":"58uty"}' \
   https://www.poq.gg/api/v1/nft/changeDeveloperStatus
 
 
@@ -83,7 +83,7 @@ Created NFT Collection with given name and symbol
 curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
-  -d '{"collectionName":'MyCollection',"collectionSymbol":'MyCol'","description":'My First NFT Collection'}' \
+  -d '{"collectionName":"MyCollection","collectionSymbol":"MyCol","description":"My First NFT Collection"}' \
   https://www.poq.gg/api/v1/create/collection
 
 
@@ -110,4 +110,46 @@ curl -H "Authorization: Bearer <your-token>" \
 
 #  Response: { collectionIds, done:true }
 #  `collectionIds`: NFT collectionIndexes created for user
+```
+
+---
+
+### `POST api/v1/nft/mint`
+
+Mints a new NFT in a given collection
+
+- Scope:
+
+  - user -> app: `nft`;
+  - app -> user: none;
+
+- Parameters:
+
+| Name                 | Type   | Description                                                              |
+| -------------------- | ------ | ------------------------------------------------------------------------ |
+| `collectionIndex`    | number | Index of one of your NFT Collections where you wish to register the NFT. |
+| `uri`                | string | Metadata of new token.                                                   |
+| `nftReceiverAddress` | string | Address to be initial owner of the new NFT.                              |
+| `description`        | string | A label for the transaction.                                             |
+|                      |        |                                                                          |
+
+- Code example:
+
+```sh
+# /!\ On Windows, escape the double-quotes around the payload's fields
+# /!\ On Windows 10, the powershell command `curl` isn't the "actual" curl
+
+# Mint New NFT
+curl -X POST \
+  -H "Authorization: Bearer <your-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"collectionIndex":0,"uri":"https://example-nft-uri.com","description":"My First Minted NFT","nftReceiverAddress:"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0"}' \
+  https://www.poq.gg/api/v1/nft/mint
+
+
+#  Response: { done, id, collectionIndex, uri, nftReceiverAddress }
+# `id`: Id of submitted transaction
+# `collectionIndex`: given by user
+# `uri`: given by user
+# `nftReceiverAddress`: given by user
 ```
