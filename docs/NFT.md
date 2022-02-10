@@ -189,9 +189,8 @@ curl -X POST \
   https://www.poq.gg/api/v1/nft/mint
 
 
-#  Response: { done, id, collectionIndex, uri, nftReceiverAddress }
+#  Response: { done, id, tokenAddress, receiverAddress }
 # `id`: Id of submitted transaction
-# `collectionIndex`: given by user
-# `uri`: given by user
-# `nftReceiverAddress`: given by user
+# `tokenAddress`: given by user
+# `receiverAddress`: given by user
 ```
