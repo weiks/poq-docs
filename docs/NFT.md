@@ -143,7 +143,49 @@ Mints a new NFT in a given collection
 curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
-  -d '{"collectionIndex":0,"uri":"https://example-nft-uri.com","description":"My First Minted NFT","nftReceiverAddress:"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0"}' \
+  -d '{"collectionIndex":0,"uri":"https://example-nft-uri.com","description":"My First Minted NFT","nftReceiverAddress":"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0"}' \
+  https://www.poq.gg/api/v1/nft/mint
+
+
+#  Response: { done, id, collectionIndex, uri, nftReceiverAddress }
+# `id`: Id of submitted transaction
+# `collectionIndex`: given by user
+# `uri`: given by user
+# `nftReceiverAddress`: given by user
+```
+
+---
+
+### `POST api/v1/nft/transfer`
+
+Transfers an NFT to another address
+
+- Scope:
+
+  - user -> app: `nft`;
+  - app -> user: none;
+
+- Parameters:
+
+| Name              | Type   | Description                     |
+| ----------------- | ------ | ------------------------------- |
+| `tokenId`         | number | Id of the token to transfer.    |
+| `tokenAddress`    | string | Address of the token.           |
+| `receiverAddress` | string | Address to transfer the NFT to. |
+| `description`     | string | A label for the transaction.    |
+|                   |        |                                 |
+
+- Code example:
+
+```sh
+# /!\ On Windows, escape the double-quotes around the payload's fields
+# /!\ On Windows 10, the powershell command `curl` isn't the "actual" curl
+
+# Mint New NFT
+curl -X POST \
+  -H "Authorization: Bearer <your-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"tokenId":1,"description":"My First NFT Transfer","receiverAddress":"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0", "tokenAddress":"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0"}' \
   https://www.poq.gg/api/v1/nft/mint
 
 
