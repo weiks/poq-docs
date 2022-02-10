@@ -1,4 +1,4 @@
-# poq.gg / `esports` app - Expected behaviour and specifications
+# poq.gg / `esports` app - Expected behavior and specifications
 
 **TODO**: This is a WIP document, embodying the hope that we can have a
 reference to look at when wondering how some feature should work, as opposed to
@@ -53,4 +53,4 @@ who receive them.
 - A coupon can be redeemed by any user who gets access to it;
 - A coupon can only be redeemed once by a given user;
 - A coupon can be redeemed by an arbitrary number of users;
-- Redeemed coupons appear as "bonus" transactions from the user's persepctive.
+- Redeemed coupons appear as "bonus" transactions from the user's perspective.
