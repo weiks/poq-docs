@@ -125,13 +125,14 @@ Mints a new NFT in a given collection
 
 - Parameters:
 
-| Name                 | Type   | Description                                                              |
-| -------------------- | ------ | ------------------------------------------------------------------------ |
-| `collectionIndex`    | number | Index of one of your NFT Collections where you wish to register the NFT. |
-| `uri`                | string | Metadata of new token.                                                   |
-| `nftReceiverAddress` | string | Address to be initial owner of the new NFT.                              |
-| `description`        | string | A label for the transaction.                                             |
-|                      |        |                                                                          |
+| Name                | Type   | Description                                                              |
+| ------------------- | ------ | ------------------------------------------------------------------------ |
+| `collectionIndex`   | number | Index of one of your NFT Collections where you wish to register the NFT. |
+| `collectionAddress` | string | Address of the NFT collection where you wish to add the NFT.             |
+| `uri`               | string | Metadata of new token.                                                   |
+| `receiverAddress`   | string | Address to be initial owner of the new NFT.                              |
+| `description`       | string | A label for the transaction.                                             |
+|                     |        |                                                                          |
 
 - Code example:
 
@@ -143,7 +144,7 @@ Mints a new NFT in a given collection
 curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
-  -d '{"collectionIndex":0,"uri":"https://example-nft-uri.com","description":"My First Minted NFT","nftReceiverAddress":"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0"}' \
+  -d '{"collectionIndex":0,"uri":"https://example-nft-uri.com","description":"My First Minted NFT","receiverAddress":"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0"}' \
   https://www.poq.gg/api/v1/nft/mint
 
 
