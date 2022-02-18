@@ -168,13 +168,13 @@ Transfers an NFT to another address
 
 - Parameters:
 
-| Name              | Type   | Description                     |
-| ----------------- | ------ | ------------------------------- |
-| `tokenId`         | number | Id of the token to transfer.    |
-| `tokenAddress`    | string | Address of the token.           |
-| `receiverAddress` | string | Address to transfer the NFT to. |
-| `description`     | string | A label for the transaction.    |
-|                   |        |                                 |
+| Name                | Type   | Description                     |
+| -----------------   | ------ | ------------------------------- |
+| `tokenId`           | number | Id of the token to transfer.    |
+| `collectionAddress` | string | Address of the collection.           |
+| `receiverAddress`   | string | Address to transfer the NFT to. |
+| `description`       | string | A label for the transaction.    |
+|                     |        |                                 |
 
 - Code example:
 
@@ -186,7 +186,7 @@ Transfers an NFT to another address
 curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
-  -d '{"tokenId":1,"description":"My First NFT Transfer","receiverAddress":"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0", "tokenAddress":"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0"}' \
+  -d '{"tokenId":1,"description":"My First NFT Transfer","receiverAddress":"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0", "tokenAddress":"0xb52547dcc9c1b0557bf44b18988fa8d553d65c5e"}' \
   https://www.poq.gg/api/v1/nft/mint
 
 
@@ -194,4 +194,106 @@ curl -X POST \
 # `id`: Id of submitted transaction
 # `tokenAddress`: given by user
 # `receiverAddress`: given by user
+```
+
+---
+
+### `GET api/v1/nft/getCollectionAddress`
+
+Query collection address at given Index
+
+- Scope: `nft`
+
+- Code example:
+
+```sh
+
+# Get the collection address for given collectionIndex
+curl -H "Authorization: Bearer <your-token>" \
+  https://www.poq.gg/api/v1/nft/getCollectionAddress?collectionIndex=10
+
+#  Response: { collectionAddress, done:true }
+# `collectionAddress`: Collection Address for given Index
+```
+**_NOTE:_**  if collection doesn't exist fo given index it will return `0x0000000000000000000000000000000000000000`
+
+---
+
+### `POST api/v1/nft/getTokenIdsForCollection`
+
+returns tokenids at given collection address for given public address wrt startIndex and lastIndex
+
+- Scope:
+
+  - user -> app: `nft`;
+  - app -> user: none;
+
+- Parameters:
+
+| Name              | Type   | Description                     |
+| -------------------- | ------ | ------------------------------- |
+| `collectionAddress`  | string | Address of collection.          |
+| `publicAddress`      | string | Public Address of user.         |
+| `startIndex`         | number | starting index to start query   |
+| `lastIndex`          | number | last index to stop query        |
+|                      |        |                                 |
+
+- Code example:
+
+```sh
+# /!\ On Windows, escape the double-quotes around the payload's fields
+# /!\ On Windows 10, the powershell command `curl` isn't the "actual" curl
+
+# Get Token Ids
+curl -X POST \
+  -H "Authorization: Bearer <your-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"collectionAddress":"0xb52547dcc9c1b0557bf44b18988fa8d553d65c5e","publicAddress":"0xc1912fee45d61c87cc5ea59dae31190fffff23aa","startIndex":9, "lastIndex":10}' \
+  https://www.poq.gg/api/v1/nft/getTokenIdsForCollection
+
+
+#  Response: { done, tokenIds }
+# `tokenIds`: array of token id
+```
+**_NOTE:_**  lastIndex must be less than nftBalance
+
+---
+
+### `GET api/v1/nft/getCollectionNameAndSymbol`
+
+Returns TokenName can TokenSymbol of given collection address
+
+- Scope: `nft`
+
+- Code example:
+
+```sh
+
+# Get CollectionName and CollectionSymbol at given collectionAddress
+curl -H "Authorization: Bearer <your-token>" \
+  https://www.poq.gg/api/v1/nft/balanceOf?collectionAddress=0xb52547dcc9c1b0557bf44b18988fa8d553d65c5e
+
+#  Response: { collectionName,collectionSymbol,done }
+# `collectionName`: Name of collection
+# 'collectionSymbol': Symbol of collection
+```
+
+---
+
+### `GET api/v1/nft/balanceOf`
+
+Returns balance at given collection address for given public address
+
+- Scope: `nft`
+
+- Code example:
+
+```sh
+
+# Get balance at given collection address for given public address
+curl -H "Authorization: Bearer <your-token>" \
+  https://www.poq.gg/api/v1/nft/balanceOf?collectionAddress=0xb52547dcc9c1b0557bf44b18988fa8d553d65c5e&publicAddress=0xc1912fee45d61c87cc5ea59dae31190fffff23aa
+
+#  Response: { balance,done }
+# `balance`: Balance of nft 
 ```
