@@ -18,43 +18,6 @@ You will first need to set up authentication with our [Oauth API](./oauth-api.md
 
 ---
 
-### `POST /v1/nft/changeDeveloperStatus`
-
-Created NFT Collection with given name and symbol
-
-- Scope:
-
-  - user -> app: `nft`;
-  - app -> user: none;
-
-- Parameters:
-
-| Name     | Type    | Description                                  |
-| -------- | ------- | -------------------------------------------- |
-| `status` | boolean | New Status For Developer.                    |
-| `userId` | string  | UserId of user whose status need to changed. |
-|          |         |                                              |
-
-- Code example:
-
-```sh
-# /!\ On Windows, escape the double-quotes around the payload's fields
-# /!\ On Windows 10, the powershell command `curl` isn't the "actual" curl
-
-# Create New Collection
-curl -X POST \
-  -H "Authorization: Bearer <your-token>" \
-  -H "Content-Type: application/json" \
-  -d '{"status":true ,"userId":"58uty"}' \
-  https://www.poq.gg/api/v1/nft/changeDeveloperStatus
-
-
-#  Response: { done, status}
-# `status`: new status for user
-```
-
----
-
 ### `POST /api/v1/nft/create/collection`
 
 Created NFT Collection with given name and symbol
