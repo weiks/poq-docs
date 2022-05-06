@@ -4,7 +4,7 @@ The OAuth API allows developers to use the OAuth2 protocol and grant their 3rd p
 
 ## Create an app
 
-Any `PoQ` user can create a Quarters app. Your account must have been created from [https://www.poq.gg/](https://www.poq.gg/). Once that is done, head to [https://pocketfulofquarters.com/apps/new](https://pocketfulofquarters.com/apps/new), and fill the self-explanatory creation form:
+Any `PoQ` user can create a Quarters app. Your account must have been created from [https://www.poq.gg/](https://www.poq.gg/). Once that is done, head to [https://apps.pocketfulofquarters.com/apps/new](https://apps.pocketfulofquarters.com/apps/new), and fill the self-explanatory creation form:
 
 ![App creation form](medias/fill_form.png)
 
@@ -213,7 +213,7 @@ node test.js
 
 - When you are ready to go to production, please repeat these steps but:
 
-  a) Use `https://pocketfulofquarters.com/apps/new` to create a production app;
+  a) Use `https://apps.pocketfulofquarters.com/apps/new` to create a production app;
 
   b) In demo.js, replace LINK with:
 
