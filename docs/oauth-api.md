@@ -8,7 +8,7 @@ Any `PoQ` user can create a Quarters app. Your account must have been created fr
 
 ![App creation form](medias/fill_form.png)
 
-After which you'll be taken to your app's page _(`https://pocketfulofquarters.com/apps/<your_app_id>`)_, where you will find your public and secret keys:
+After which you'll be taken to your app's page _(`https://apps.pocketfulofquarters.com/apps/<your_app_id>`)_, where you will find your public and secret keys:
 
 ![App infos](medias/your_app.png)
 
@@ -314,6 +314,10 @@ curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/wallets/@
 ### `POST /api/v1/transactions`
 
 Transfers Quarters between your app and a user, or vice versa.
+
+⚠️ Note ⚠️ that currently you cannot make a transfer between your app and your
+developper account. To test your app, you need to create a secondary test
+account on https://www.poq.gg/.
 
 - Scope:
 
