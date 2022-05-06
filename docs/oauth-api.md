@@ -8,7 +8,7 @@ Any `PoQ` user can create a Quarters app. Your account must have been created fr
 
 ![App creation form](medias/fill_form.png)
 
-After which you'll be taken to your app's page _(`https://pocketfulofquarters.com/apps/<your_app_id>`)_, where you will find your public and secret keys:
+After which you'll be taken to your app's page _(`https://apps.pocketfulofquarters.com/apps/<your_app_id>`)_, where you will find your public and secret keys:
 
 ![App infos](medias/your_app.png)
 
