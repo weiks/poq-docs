@@ -315,7 +315,7 @@ curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/wallets/@
 
 Transfers Quarters between your app and a user, or vice versa.
 
-Note that currently you cannot make a transfer between your app and your
+⚠️ Note ⚠️ that currently you cannot make a transfer between your app and your
 developper account. To test your app, you need to create a secondary test
 account on https://www.poq.gg/.
 
