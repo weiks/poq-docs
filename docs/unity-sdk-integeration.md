@@ -11,6 +11,8 @@ To use PoQ's APIs or SDK you first need to have [a PoQ account](https://www.poq.
 
 Once you have an application setup you need to create 2-way linking between it and the Unity application
 
+During either of the two linking processes below, if it's your first linking, you will be asked to provide a unique identifier that will be used to provide you with a unique poq subdomain like this: `https://example.games.poq.gg`
+
 ### Linking with iOS
 
 1. Login on your Apple developer account in https://developer.apple.com/
@@ -22,8 +24,9 @@ The app's page will now mention a prefix and an ID at the top, keep those handy.
 
 5. Go to https://poq.gg/apps (login if you're not logged in)
 6. Locate your app and click on the `iOS` button next to it
-7. Fill in the Team ID field as with the prefix value from above and fill in the bundle ID field with ID field from above
-8. Click submit and you should be done!
+7. Choose a unique identifier if you haven't already
+8. Fill in the Team ID field as with the prefix value from above and fill in the bundle ID field with ID field from above
+9. Click submit and you should be done!
 
 ### Linking with Android
 
@@ -35,6 +38,11 @@ The app's page will now mention a prefix and an ID at the top, keep those handy.
     and copy the long value with lots of colons that appears next to SHA256 that looks like this `14:6D:E9:83:C5:73:06:50:D8:EE:B9:95:2F:34:FC:64:16:A0:83:42:E6:1D:BE:A8:8A:04:96:B2:3F:CF:44:E5`
 
 3. Go to https://poq.gg/apps (login if you're not logged in)
-4. Fill in the package name with the package name you got from step 1, fill in the certificate fingerprint with the value you got from step 2
-5. Click submit and you should be done!
+4. Choose a unique identifier if you haven't already
+5. Fill in the package name with the package name you got from step 1, fill in the certificate fingerprint with the value you got from step 2
+6. Click submit and you should be done!
+
+### After linking
+
+You can then take the unique URL you were assigned and use it as your app's URL in https://apps.pocketfulofquarters.com
 
