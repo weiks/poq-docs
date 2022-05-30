@@ -3,13 +3,13 @@
 If you're developing a mobile Unity game we provide a [Unity SDK](https://github.com/weiks/quarters-unity-sdk) that makes integrating Quarters into your game simple and intuitive. Below is an explanation of how to setup that integration
 
 ## Setup
-To use PoQ's APIs or SDK you first need to have [a PoQ account](https://www.poq.gg/?action=signup) and using that account you can create your PoQ app.
+To use PoQ's APIs or SDK, you first need to have [a PoQ account](https://www.poq.gg/?action=signup). Using that account you can create your PoQ app.
 
 1. Go to https://apps.pocketfulofquarters.com
 2. Sign in with the same information you used to register on `poq.gg`
 3. Fill in the application form, don't worry if you're not sure about any of the fields, you can edit them again later.
 
-Once you have an application setup you need to create 2-way linking between it and the Unity application
+Once you have an application setup, you need to create a 2-way linking between it and the Unity application itself.
 
 During either of the two linking processes below, if it's your first linking, you will be asked to provide a unique identifier that will be used to provide you with a unique poq subdomain like this: `https://example.games.poq.gg`
 
