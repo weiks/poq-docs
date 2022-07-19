@@ -318,7 +318,7 @@ Transfers Quarters between your app and a user, or vice versa.
 - ⚠️ Important notes: ⚠️
 
   - Currently you cannot make a transfer between your app and your
-    developper account. To test your app, you need to create a secondary test
+    developer account. To test your app, you need to create a secondary test
     account on https://www.poq.gg/.
   - Before your app can take Quarters from users, it will need to be vetted by
     our staff. To request verification, you can reach out on:

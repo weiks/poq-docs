@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Quarters system is adding support for NFTs! This means that you can now register custom and unique virtual items significant to your own games on the blockchain via Quarters. We've worked hard to make the process simple, with the same ease you've come to expect when integrating the Quarters universal gaming currency into your own game.
+The Quarters system is adding support for NFTs! This means that you can now register custom and unique virtual items significant to your own games on the blockchain via Quarters. We've worked hard to make the process simple, with the same ease you've come to expect when integrating the Quarters Universal Gaming Token into your own game.
 
 For this guide, a general understanding of the Pocketful of Quarters (PoQ) system is already assumed. This can be found following the [links on our homepage](https://www.poq.gg/). We also assume that general knowledge of [Blockchain](https://en.wikipedia.org/wiki/Blockchain) concepts and [Quarter's cross-game fungible cryptocurrency](https://invest.poq.gg/) is already understood.
 
