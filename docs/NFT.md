@@ -47,7 +47,7 @@ curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
   -d '{"collectionName":"MyCollection","collectionSymbol":"MyCol","description":"My First NFT Collection"}' \
-  https://www.poq.gg/api/v1/create/collection
+  https://api.poq.gg/api/v1/create/collection
 
 
 #  Response: { done, collectionName, collectionSymbol }
@@ -69,7 +69,7 @@ Query collection indexes for particular user participant
 
 # Get the collection indexes of participant
 curl -H "Authorization: Bearer <your-token>" \
-  https://www.poq.gg/api/v1/nft/getCollections
+  https://api.poq.gg/api/v1/nft/getCollections
 
 #  Response: { collectionIds, done:true }
 #  `collectionIds`: NFT collectionIndexes created for user
@@ -108,7 +108,7 @@ curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
   -d '{"collectionIndex":0,"uri":"https://example-nft-uri.com","description":"My First Minted NFT","receiverAddress":"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0"}' \
-  https://www.poq.gg/api/v1/nft/mint
+  https://api.poq.gg/api/v1/nft/mint
 
 
 #  Response: { done, id, collectionIndex, uri, nftReceiverAddress }
@@ -150,7 +150,7 @@ curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
   -d '{"tokenId":1,"description":"My First NFT Transfer","receiverAddress":"0x5cC788f1a171a024BcA758A34d50F55BE18f7cc0", "tokenAddress":"0xb52547dcc9c1b0557bf44b18988fa8d553d65c5e"}' \
-  https://www.poq.gg/api/v1/nft/mint
+  https://api.poq.gg/api/v1/nft/mint
 
 
 #  Response: { done, id, tokenAddress, receiverAddress }
@@ -173,7 +173,7 @@ Query collection address at given Index
 
 # Get the collection address for given collectionIndex
 curl -H "Authorization: Bearer <your-token>" \
-  https://www.poq.gg/api/v1/nft/getCollectionAddress?collectionIndex=10
+  https://api.poq.gg/api/v1/nft/getCollectionAddress?collectionIndex=10
 
 #  Response: { collectionAddress, done:true }
 # `collectionAddress`: Collection Address for given Index
@@ -212,7 +212,7 @@ curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
   -d '{"collectionAddress":"0xb52547dcc9c1b0557bf44b18988fa8d553d65c5e","publicAddress":"0xc1912fee45d61c87cc5ea59dae31190fffff23aa","startIndex":9, "lastIndex":10}' \
-  https://www.poq.gg/api/v1/nft/getTokenIdsForCollection
+  https://api.poq.gg/api/v1/nft/getTokenIdsForCollection
 
 
 #  Response: { done, tokenIds }
@@ -234,7 +234,7 @@ Returns TokenName can TokenSymbol of given collection address
 
 # Get CollectionName and CollectionSymbol at given collectionAddress
 curl -H "Authorization: Bearer <your-token>" \
-  https://www.poq.gg/api/v1/nft/balanceOf?collectionAddress=0xb52547dcc9c1b0557bf44b18988fa8d553d65c5e
+  https://api.poq.gg/api/v1/nft/balanceOf?collectionAddress=0xb52547dcc9c1b0557bf44b18988fa8d553d65c5e
 
 #  Response: { collectionName,collectionSymbol,done }
 # `collectionName`: Name of collection
@@ -255,7 +255,7 @@ Returns balance at given collection address for given public address
 
 # Get balance at given collection address for given public address
 curl -H "Authorization: Bearer <your-token>" \
-  https://www.poq.gg/api/v1/nft/balanceOf?collectionAddress=0xb52547dcc9c1b0557bf44b18988fa8d553d65c5e&publicAddress=0xc1912fee45d61c87cc5ea59dae31190fffff23aa
+  https://api.poq.gg/api/v1/nft/balanceOf?collectionAddress=0xb52547dcc9c1b0557bf44b18988fa8d553d65c5e&publicAddress=0xc1912fee45d61c87cc5ea59dae31190fffff23aa
 
 #  Response: { balance,done }
 # `balance`: Balance of nft 
