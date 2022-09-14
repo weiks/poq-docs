@@ -17,7 +17,7 @@ After which you'll be taken to your app's page _(`https://apps.pocketfulofquarte
 ### 1 - Send your users to the authorization page, to request the access
 
 ```CURL
-GET https://www.poq.gg/api/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email
+GET https://api.poq.gg/api/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email
 ```
 
 | Parameter       | Required | Description                                                   |
@@ -51,7 +51,7 @@ GET https://potatoheist.com/poq_auth/success?code=eyJhbGciOiJIUzI1NiIsInR5
 You can now use the `code` passed to your `redirect_uri` page to request the `PoQ` access token from your backend.
 
 ```CURL
-POST https://www.poq.gg/api/oauth2/token
+POST https://api.poq.gg/api/oauth2/token
 ```
 
 With the following parameters (`application/x-www-form-urlencoded`):
@@ -81,7 +81,7 @@ The response's json:
 You can get a new `access_token` when the previous one expires, by calling the same endpoint:
 
 ```CURL
-POST https://www.poq.gg/api/oauth2/token
+POST https://api.poq.gg/api/oauth2/token
 ```
 
 With the following parameters (`application/x-www-form-urlencoded`):
@@ -101,7 +101,7 @@ With the following parameters (`application/x-www-form-urlencoded`):
 After you have a valid access token, you can make your first API call:
 
 ```curl
-curl https://www.poq.gg/api/v1/users/me -H 'Authorization: Bearer <your_access_token>'
+curl https://api.poq.gg/api/v1/users/me -H 'Authorization: Bearer <your_access_token>'
 ```
 
 Example response:
@@ -110,7 +110,7 @@ Example response:
 {
   id: "aZKj1ae58awWEF63",
   gamerTag: "User1",
-  avatar: "ccc954.png", // Full URL: https://www.poq.gg/images/${id}/${avatar}
+  avatar: "ccc954.png", // Full URL: https://api.poq.gg/images/${id}/${avatar}
   email: "user1@example.com", // email scope only
 }
 ```
@@ -129,7 +129,7 @@ const got = require("got").default;
 
 const CLIENT_ID = ""; // insert your client_id here
 const CLIENT_SECRET = ""; // insert your client_secret here
-const LINK = "https://s2w-dev-firebase.herokuapp.com/"; // for production, please use https://www.poq.gg
+const LINK = "https://s2w-dev-firebase.herokuapp.com/"; // for production, please use https://api.poq.gg
 const SCOPE = "identity";
 const PORT = 7777;
 
@@ -218,7 +218,7 @@ node test.js
   b) In demo.js, replace LINK with:
 
 ```javascript
-const LINK = "https://www.poq.gg"; // for development, you can use https://s2w-dev-firebase.herokuapp.com/
+const LINK = "https://api.poq.gg"; // for development, you can use https://s2w-dev-firebase.herokuapp.com/
 ```
 
 ## Integration via Authorization Flow with Proof Key for Code Exchange (PKCE)
@@ -283,7 +283,7 @@ Fetches a user's account information.
 - Scope: `identity` || `email`
 
 ```sh
-curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/users/me
+curl -H "Authorization: Bearer <your-token>" https://api.poq.gg/api/v1/users/me
 
 # Response: {
 #   "id": "XlPgcK8nfObx9wdIz2NU6087pfp2",
@@ -302,7 +302,7 @@ Fetches a user's wallet information.
 - Scope: `wallet`
 
 ```sh
-curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/wallets/@me
+curl -H "Authorization: Bearer <your-token>" https://api.poq.gg/api/v1/wallets/@me
 
 # Response: {
 #   "balance": 1000,
@@ -319,7 +319,7 @@ Transfers Quarters between your app and a user, or vice versa.
 
   - Currently you cannot make a transfer between your app and your
     developer account. To test your app, you need to create a secondary test
-    account on https://www.poq.gg/.
+    account on https://api.poq.gg/.
   - Before your app can take Quarters from users, it will need to be vetted by
     our staff. To request verification, you can reach out on:
     https://discord.com/invite/poq.
@@ -348,7 +348,7 @@ curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
   -d '{"creditUser":20}' \
-  https://www.poq.gg/api/v1/transactions
+  https://api.poq.gg/api/v1/transactions
 
 
 # Take 50 Quarters from a user
@@ -356,7 +356,7 @@ curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
   -d '{"creditUser":-50, "description":"Entry fee for ..."}' \
-  https://www.poq.gg/api/v1/transactions
+  https://api.poq.gg/api/v1/transactions
 
 #  Response: { id }
 #  `id`: Quarters transaction id (currently useless)
@@ -373,7 +373,7 @@ Returns the list of games supported by PoQ.
 - Code example:
 
 ```sh
-curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/games
+curl -H "Authorization: Bearer <your-token>" https://api.poq.gg/api/v1/games
 
 #  Response:
 # {
@@ -413,7 +413,7 @@ Query information about the upcoming events.
 
 # Get events for the game 'fortnite', starting after '2021-10-24T17:42:23.787Z'
 curl -H "Authorization: Bearer <your-token>" \
-  https://www.poq.gg/api/v1/events?game=fortnite&after=2021-10-24T17:42:23.787Z
+  https://api.poq.gg/api/v1/events?game=fortnite&after=2021-10-24T17:42:23.787Z
 
 #  Response:
 # events : [
@@ -449,7 +449,7 @@ Query information about a user's participation information (or lack thereof) in 
 
 # Get the participation information of user 789 in event 123
 curl -H "Authorization: Bearer <your-token>" \
-  https://www.poq.gg/api/v1/events/123/participants/789
+  https://api.poq.gg/api/v1/events/123/participants/789
 
 #  Response: { id, vip }
 #  `id`: The same as the user id
