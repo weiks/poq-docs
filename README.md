@@ -6,7 +6,7 @@ Welcome, game developers!
 
 > Learn more about Quarters at our [main site](https://https://pocketfulofquarters.com/)
 >
-> Use the [POQ Unity SDK](https://assetstore.unity.com/packages/tools/integration/quarterssdk-226386) to start integrating the Quarters in games on the Unity platform.
+> Use the [POQ Unity SDK](https://assetstore.unity.com/packages/tools/integration/quarterssdk-226386) to start integrating the Quarters in games on the Unity platform. Review [Unity integration docs](./docs/unity-sdk-integration.md)
 >
 > Use the [POQ OAuth API](https://github.com/weiks/poq-docs/blob/main/docs/oauth-api.md) to start integrating the Quarters in-game utility token within your game(s).
 >
