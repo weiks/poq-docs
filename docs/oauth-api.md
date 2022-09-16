@@ -1,16 +1,16 @@
-# PoQ - OAuth API
+# POQ - OAuth API
 
 The OAuth API allows developers to use the OAuth2 protocol and grant their 3rd party application full or partial access to a `Pocketful Of Quarters` (`PoQ`) user account. This page will guide you through the integration process.
 
 ## Create an app
 
-Any `PoQ` user can create a Quarters app. Your account must have been created from [https://www.poq.gg/](https://www.poq.gg/). Once that is done, head to [https://apps.pocketfulofquarters.com/apps/new](https://apps.pocketfulofquarters.com/apps/new), and fill the self-explanatory creation form:
+Any `PoQ` user can create a Quarters app. Your account must have been created from [https://www.poq.gg/](https://www.poq.gg/). Once that is done, head to [https://apps.pocketfulofquarters.com/apps/new](https://apps.pocketfulofquarters.com/apps/new), and fill out the self-explanatory creation form:
 
 ![App creation form](medias/fill_form.png)
 
 After which you'll be taken to your app's page _(`https://apps.pocketfulofquarters.com/apps/<your_app_id>`)_, where you will find your public and secret keys:
 
-![App infos](medias/your_app.png)
+![App info](medias/your_app.png)
 
 ## Integration via Authorization Flow
 
