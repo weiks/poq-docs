@@ -4,7 +4,7 @@ If you're developing a mobile Unity game we provide a [Unity SDK](https://github
 Below is an 3 step explanation of how to setup that integration.
 
 ## 1) Creating the PoQ App
-To use PoQ's APIs or SDK, you first need to have [a PoQ account](https://www.poq.gg/?action=signup).
+To use PoQ's APIs or SDK, you first need to have [a PoQ account](https://www.poq.gg/login).
 Using that account you can create your PoQ app.
 
   1. Go to https://apps.pocketfulofquarters.com
