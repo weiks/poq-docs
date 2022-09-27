@@ -10,7 +10,7 @@ Welcome, game developers!
 >
 > Use the [POQ OAuth API](https://github.com/weiks/poq-docs/blob/main/docs/oauth-api.md) to start integrating the Quarters in-game utility token within your game(s).
 >
-> Use the [POQ `api-and-integration channel` in our Discord Game Devs server](https://discord.com/channels/908772014859378708/910205059403509803) to Integrate Quarters NFTs into your game(s) to represent tradable unique items for your users.
+
 
 ## Overview
 
