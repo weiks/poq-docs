@@ -251,8 +251,8 @@ Your application should generate a cryptographically random string between 43
 and 128 characters that can only contain standard ASCII latin letters (both
 upper case and lower case allowed), digits, underscores, hyphens and tildes.
 It is advised to generate such a string with a cryptographically random number
-generator with at least 256-bits of entropy. We will call this string code
-verifier from here on out.
+generator with at least 256-bits of entropy. We will call this string **code
+verifier** from here on out.
 
 Next to generate the code challenge, the string must be hashed using the SHA256
 algorithm. Then the resulted hash must be encoded using
