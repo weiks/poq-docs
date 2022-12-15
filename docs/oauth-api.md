@@ -1,14 +1,21 @@
 # POQ - OAuth API
 
-The OAuth API allows developers to use the OAuth2 protocol and grant their 3rd party application full or partial access to a `Pocketful Of Quarters` (`PoQ`) user account. This page will guide you through the integration process.
+The OAuth API allows developers to use the OAuth2 protocol and grant their 3rd
+party application full or partial access to a `Pocketful Of Quarters` (`PoQ`)
+user account. This page will guide you through the integration process.
 
 ## Create an app
 
-Any `PoQ` user can create a Quarters app. Your account must have been created from [https://www.poq.gg/login](https://www.poq.gg/login). Once that is done, head to [https://apps.pocketfulofquarters.com/apps/new](https://apps.pocketfulofquarters.com/apps/new), and fill out the self-explanatory creation form:
+Any `PoQ` user can create a Quarters app. Your account must have been created
+from [https://www.poq.gg/login](https://www.poq.gg/login).
+Once that is done, head to [https://apps.pocketfulofquarters.com/apps/new](https://apps.pocketfulofquarters.com/apps/new),
+and fill out the self-explanatory creation form:
 
 ![App creation form](medias/fill_form.png)
 
-After which you'll be taken to your app's page _(`https://apps.pocketfulofquarters.com/apps/<your_app_id>`)_, where you will find your public and secret keys:
+After which you'll be taken to your app's page
+_(`https://apps.pocketfulofquarters.com/apps/<your_app_id>`)_, where you will
+find your public and secret keys:
 
 ![App info](medias/your_app.png)
 
@@ -38,17 +45,20 @@ GET https://www.poq.gg/api/oauth2/authorize?response_type=code&client_id=YOUR_CL
 
 ### 2 - `PocketfulOfQuarters` redirects the users back to your app
 
-If the user approves your authorization request, they will be redirected back to your `redirect_uri` with a temporary code parameter.
+If the user approves your authorization request, they will be redirected back to
+your `redirect_uri` with a temporary code parameter.
 
 ```CURL
 GET https://potatoheist.com/poq_auth/success?code=eyJhbGciOiJIUzI1NiIsInR5
 ```
 
-> `redirect_uri` must be in `https`. Non-secure URIs can only be used for testing and will not be supported in production.
+> `redirect_uri` must be in `https`. Non-secure URIs can only be used for
+> testing and will not be supported in production.
 
 ### 3 - Request the access token
 
-You can now use the `code` passed to your `redirect_uri` page to request the `PoQ` access token from your backend.
+You can now use the `code` passed to your `redirect_uri` page to request the
+`PoQ` access token from your backend.
 
 ```CURL
 POST https://www.poq.gg/api/oauth2/token
@@ -78,7 +88,8 @@ The response's json:
 
 ### 4 - Refreshing the access token
 
-You can get a new `access_token` when the previous one expires, by calling the same endpoint:
+You can get a new `access_token` when the previous one expires, by calling the
+same endpoint:
 
 ```CURL
 POST https://www.poq.gg/api/oauth2/token
@@ -193,7 +204,8 @@ app.listen(PORT, () => {
 });
 ```
 
-- Cut and paste the `client_id` and `client_secret` from the app page, into the code above;
+- Cut and paste the `client_id` and `client_secret` from the app page, into the
+  code above;
 - Install got and express and then run the test code;
 
 ```javascript
@@ -201,7 +213,9 @@ npm install got express
 node test.js
 ```
 
-- Open `http://localhost:7777` in your browser, and click "connect". Authorize the app, and it will show the results of the API call that look something like this:
+- Open `http://localhost:7777` in your browser, and click "connect". Authorize
+  the app, and it will show the results of the API call that look something like
+  this:
 
 ```json
 {
@@ -223,17 +237,32 @@ const LINK = "https://www.poq.gg"; // for development, you can use https://s2w-d
 
 ## Integration via Authorization Flow with Proof Key for Code Exchange (PKCE)
 
-If your application has no server component and is a public application (native apps, whether mobile or desktop) it is unadvisable to use the above flow as it would require you to store your application's secret inside of the app, all public applications can be mined for the secrets they contain thus making this unadvisable, instead we offer the same flow with some slight modifications that makes it usable by public applications without the need for storing secret credentials
+If your application has no server component and is a public application (native
+apps, whether mobile or desktop) it is unadvisable to use the above flow as it
+would require you to store your application's secret inside of the app, all
+public applications can be mined for the secrets they contain thus making this
+unadvisable, instead we offer the same flow with some slight modifications that
+makes it usable by public applications without the need for storing secret
+credentials
 
 ### 0 - Create a code verifier and derive a code challenge from it
 
-Your application should generate a cryptographically random string between 43 and 128 characters that can only contain standard ASCII latin letters (both upper case and lower case allowed), digits, underscores, hyphens and tildes. It is advised to generate such a string with a cryptographically random number generator with at least 256-bits of entropy. We will call this string code verifier from here on out.
+Your application should generate a cryptographically random string between 43
+and 128 characters that can only contain standard ASCII latin letters (both
+upper case and lower case allowed), digits, underscores, hyphens and tildes.
+It is advised to generate such a string with a cryptographically random number
+generator with at least 256-bits of entropy. We will call this string **code
+verifier** from here on out.
 
-Next to generate the code challenge, the string must be hashed using the SHA256 algorithm. Then the resulted hash must be encoded using [base64url](https://datatracker.ietf.org/doc/html/rfc4648#section-5) encoding. (standard base64 encoding with + and / swapped for - and \_ and no padding at the end)
+Next to generate the code challenge, the string must be hashed using the SHA256
+algorithm. Then the resulted hash must be encoded using
+[base64url](https://datatracker.ietf.org/doc/html/rfc4648#section-5) encoding.
+(standard base64 encoding with + and / swapped for - and \_ and no padding at the end)
 
 ### 1 - Send your users to the authorization page, to request the access
 
-This is almost identical to step 1 without PKCE with two minute differences in the query parameters: `code_challenge` and `code_challenge_method`
+This is almost identical to step 1 without PKCE with two minute differences in
+the query parameters: `code_challenge` and `code_challenge_method`
 
 | Parameter               | Required | Description                                                        |
 | ----------------------- | -------- | ------------------------------------------------------------------ |
@@ -247,11 +276,14 @@ This is almost identical to step 1 without PKCE with two minute differences in t
 
 ### 2 - PoQ redirects the user back to your app
 
-This step is identical to step 2 without PKCE, they will also be redirected with code and state (if present in step 1) or error and state (if something went wrong)
+This step is identical to step 2 without PKCE, they will also be redirected with
+code and state (if present in step 1) or error and state (if something went wrong)
 
 ### 3 - Request the access token
 
-Again very similar to step 3 without PKCE, but instead of sending `client_secret` the code verifier, as generated in step 0, is sent. (Reminder, the body must be encoded with `application/x-www-form-urlencoded`)
+Again very similar to step 3 without PKCE, but instead of sending `client_secret`
+the code verifier, as generated in step 0, is sent. (Reminder, the body must be
+encoded with `application/x-www-form-urlencoded`)
 
 | Parameter       | Required | Description                                         |
 | --------------- | -------- | --------------------------------------------------- |
@@ -263,7 +295,8 @@ Again very similar to step 3 without PKCE, but instead of sending `client_secret
 
 ### 4 & 5 - Refreshing access token and making requests
 
-Nothing changes about refreshing the access token or making requests with the acquired access token.
+Nothing changes about refreshing the access token or making requests with the
+acquired access token.
 
 ## Endpoints available - v1
 
