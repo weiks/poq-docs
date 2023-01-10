@@ -105,6 +105,10 @@ With the following parameters (`application/x-www-form-urlencoded`):
 | `refresh_token` | yes      | `refresh_token` received from step (3).                       |
 | `scope`         | no       | Same scope as initial, or restricted.                         |
 
+> **Note**:
+> Refresh tokens are valid for a duration of 6 months. Beyond that, the user
+> will need to go through the authorization flow again.
+
 (Same response as described in step (3)).
 
 ### 5. Make an API call
