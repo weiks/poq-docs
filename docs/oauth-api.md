@@ -6,14 +6,15 @@ user account. This page will guide you through the integration process.
 
 ## Create an app
 
-First,if you don't have a PoQ account, you can create one in our site [https://www.poq.gg/login](https://www.poq.gg/login).
-Then, you need to request a Game Developer role to gain access to the Game Dashboard.
-Once you request have been approved, head to [https://poq.gg/dev](https://poq.gg/dev), and click 'Create' button and fill out the self-explanatory creation form:
+Any `PoQ` user can create a Quarters app. Your account must have been created
+from [https://www.poq.gg/login](https://www.poq.gg/login).
+Once that is done, head to [https://apps.pocketfulofquarters.com/apps/new](https://apps.pocketfulofquarters.com/apps/new),
+and fill out the self-explanatory creation form:
 
 ![App creation form](medias/fill_form.png)
 
 After which you'll be taken to your app's page
-_(`https://poq.gg/manage_app?edit=true&id=<your_app_id>`)_, where you will
+_(`https://apps.pocketfulofquarters.com/apps/<your_app_id>`)_, where you will
 find your public and secret keys:
 
 ![App info](medias/your_app.png)
@@ -23,7 +24,7 @@ find your public and secret keys:
 ### 1 - Send your users to the authorization page, to request the access
 
 ```CURL
-GET https://www.poq.gg/api/v1/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email
+GET https://www.poq.gg/api/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email
 ```
 
 | Parameter       | Required | Description                                                   |
@@ -32,6 +33,7 @@ GET https://www.poq.gg/api/v1/oauth2/authorize?response_type=code&client_id=YOUR
 | `client_id`     | yes      | The value of the `client_id` field, _(see above screenshot)_. |
 | `redirect_uri`  | yes      | The URL _(encoded)_ to redirect the users back to your app.   |
 | `scope`         | yes      | Space delimited list of scopes                                |
+| `state`         | no       | Use against CSRF and click-jacking.                           |
 
 **Available scopes:**
 
@@ -39,6 +41,7 @@ GET https://www.poq.gg/api/v1/oauth2/authorize?response_type=code&client_id=YOUR
 - `email`: Same as `identity`, with the additional field `{ email }`.
 - `wallet`: Allows for querying info about a user's wallet.
 - `transactions`: Allows making transactions in behalf of the user.
+- `events`: Allows querying a user's participant status in events.
 
 ### 2 - `PocketfulOfQuarters` redirects the users back to your app
 
@@ -46,10 +49,11 @@ If the user approves your authorization request, they will be redirected back to
 your `redirect_uri` with a temporary code parameter.
 
 ```CURL
-GET https://test-game.games.poq.gg/poq_auth/success?code=eyJhbGciOiJIUzI1NiIsInR5
+GET https://potatoheist.com/poq_auth/success?code=eyJhbGciOiJIUzI1NiIsInR5
 ```
 
-> `redirect_uri` is an auto-generated url for your game
+> `redirect_uri` must be in `https`. Non-secure URIs can only be used for
+> testing and will not be supported in production.
 
 ### 3 - Request the access token
 
@@ -112,7 +116,7 @@ With the following parameters (`application/x-www-form-urlencoded`):
 After you have a valid access token, you can make your first API call:
 
 ```curl
-curl https://www.poq.gg/api/v1/users/@me -H 'Authorization: Bearer <your_access_token>'
+curl https://www.poq.gg/api/v1/users/me -H 'Authorization: Bearer <your_access_token>'
 ```
 
 Example response:
@@ -129,7 +133,7 @@ Example response:
 ### 6. Putting it all together
 
 - Create a new development app for yourself:
-  `https://poq.gg/dev`
+  `https://sandbox.pocketfulofquarters.com/apps/new`
 - Use `http://localhost:7777` as the App Url;
 - Save the following code as `test.js`:
 
@@ -272,6 +276,7 @@ the query parameters: `code_challenge` and `code_challenge_method`
 | `client_id`             | yes      | (Same as without PKCE)                                             |
 | `redirect_uri`          | yes      | (Same as without PKCE)                                             |
 | `scope`                 | yes      | (Same as without PKCE)                                             |
+| `state`                 | no       | (Same as without PKCE)                                             |
 
 ### 2 - PoQ redirects the user back to your app
 
@@ -308,7 +313,7 @@ Typical failed call of an endpoint:
 }
 ```
 
-### `GET /api/v1/users/@me`
+### `GET /api/v1/users/me`
 
 Fetches a user's account information.
 
@@ -349,6 +354,9 @@ Transfers Quarters between your app and a user, or vice versa.
 
 - ⚠️ Important notes: ⚠️
 
+  - Currently you cannot make a transfer between your app and your
+    developer account. To test your app, you need to create a secondary test
+    account on https://www.poq.gg/.
   - Before your app can take Quarters from users, it will need to be vetted by
     our staff. To request verification, you can reach out on:
     https://discord.com/invite/poq.
@@ -392,3 +400,95 @@ curl -X POST \
 ```
 
 ---
+
+### `GET /api/v1/games`
+
+Returns the list of games supported by PoQ.
+
+- Scope: none.
+
+- Code example:
+
+```sh
+curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/games
+
+#  Response:
+# {
+#    games : [
+#     {
+#       slug,         // The identifier of the game
+#       name ,        // The game's name
+#       description,  // A short description about the game
+#       logo,         // The path to the game's logo
+#       cover,        // The path to the game's cover
+#       tags, styles  // Game-specific indicators of the game's gameplay types
+#     }
+#   ]
+# }
+
+```
+
+---
+
+### `GET /api/v1/events?{...args}`
+
+Query information about the upcoming events.
+
+- Scope: `events`
+
+- Parameters:
+
+| Name    | Type   | Description                                                                |
+| ------- | ------ | -------------------------------------------------------------------------- |
+| `game`  | string | (optional) If specified, will return events from that game only.           |
+| `after` | Date   | (optional) If specified, will return events starting after the given date. |
+|         |        |                                                                            |
+
+- Code example:
+
+```sh
+
+# Get events for the game 'fortnite', starting after '2021-10-24T17:42:23.787Z'
+curl -H "Authorization: Bearer <your-token>" \
+  https://www.poq.gg/api/v1/events?game=fortnite&after=2021-10-24T17:42:23.787Z
+
+#  Response:
+# events : [
+#   {
+#     id,           // The internal identifier of the event
+#     title,        // The event's title
+#     hostId,       // The host's internal user id
+#     host,         // The host's name
+#     hostAvatar,   // The path to the host's avatar
+#     date,         // The starting date of the event
+#     openSlots,    // How many slots are still available
+#     totalSlots,   // The total number of slot
+#     fee,          // The normal Quarters fee to enter the event
+#     vipFee,       // The Quarters fee to enter the event as VIP
+#     game,         // The game being played in the event
+#     tag, style    // Game-specific indicators of the event's gameplay type
+#   }
+# ]
+
+```
+
+---
+
+### `GET /api/v1/events/{event_id}/participants/{user_id}`
+
+Query information about a user's participation information (or lack thereof) in an event
+
+- Scope: `events`
+
+- Code example:
+
+```sh
+
+# Get the participation information of user 789 in event 123
+curl -H "Authorization: Bearer <your-token>" \
+  https://www.poq.gg/api/v1/events/123/participants/789
+
+#  Response: { id, vip }
+#  `id`: The same as the user id
+#  `vip`: Whether the user joined the event as a VIP or not
+```
