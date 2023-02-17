@@ -33,9 +33,6 @@ GET https://www.poq.gg/api/v1/oauth2/authorize?response_type=code&client_id=YOUR
 | `client_id`             | yes      | The value of the `client_id` field, _(see above screenshot)_.            |
 | `redirect_uri`          | yes      | The URL _(encoded)_ to redirect the users back to your app.              |
 | `scope`                 | yes      | Space delimited list of scopes                                           |
-| `accept`                | yes      |
-| `code_challenge`        | yes      | PKCE (proof key of code exchange)                                        |
-| `code_challenge_method` | yes      | Encoding method of your PKCE (required to be encoded on "S256" method)   |
 
 **Available scopes:**
 
@@ -277,7 +274,6 @@ the query parameters: `code_challenge` and `code_challenge_method`
 | `client_id`             | yes      | (Same as without PKCE)                                             |
 | `redirect_uri`          | yes      | (Same as without PKCE)                                             |
 | `scope`                 | yes      | (Same as without PKCE)                                             |
-| `state`                 | no       | (Same as without PKCE)                                             |
 
 ### 2 - PoQ redirects the user back to your app
 
@@ -314,7 +310,7 @@ Typical failed call of an endpoint:
 }
 ```
 
-### `GET /api/v1/users/me`
+### `GET /api/v1/users/@me`
 
 Fetches a user's account information.
 
@@ -354,10 +350,6 @@ curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/wallets/@
 Transfers Quarters between your app and a user, or vice versa.
 
 - ⚠️ Important notes: ⚠️
-
-  - Currently you cannot make a transfer between your app and your
-    developer account. To test your app, you need to create a secondary test
-    account on https://www.poq.gg/.
   - Before your app can take Quarters from users, it will need to be vetted by
     our staff. To request verification, you can reach out on:
     https://discord.com/invite/poq.
@@ -401,95 +393,3 @@ curl -X POST \
 ```
 
 ---
-
-### `GET /api/v1/games`
-
-Returns the list of games supported by PoQ.
-
-- Scope: none.
-
-- Code example:
-
-```sh
-curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/games
-
-#  Response:
-# {
-#    games : [
-#     {
-#       slug,         // The identifier of the game
-#       name ,        // The game's name
-#       description,  // A short description about the game
-#       logo,         // The path to the game's logo
-#       cover,        // The path to the game's cover
-#       tags, styles  // Game-specific indicators of the game's gameplay types
-#     }
-#   ]
-# }
-
-```
-
----
-
-### `GET /api/v1/events?{...args}`
-
-Query information about the upcoming events.
-
-- Scope: `events`
-
-- Parameters:
-
-| Name    | Type   | Description                                                                |
-| ------- | ------ | -------------------------------------------------------------------------- |
-| `game`  | string | (optional) If specified, will return events from that game only.           |
-| `after` | Date   | (optional) If specified, will return events starting after the given date. |
-|         |        |                                                                            |
-
-- Code example:
-
-```sh
-
-# Get events for the game 'fortnite', starting after '2021-10-24T17:42:23.787Z'
-curl -H "Authorization: Bearer <your-token>" \
-  https://www.poq.gg/api/v1/events?game=fortnite&after=2021-10-24T17:42:23.787Z
-
-#  Response:
-# events : [
-#   {
-#     id,           // The internal identifier of the event
-#     title,        // The event's title
-#     hostId,       // The host's internal user id
-#     host,         // The host's name
-#     hostAvatar,   // The path to the host's avatar
-#     date,         // The starting date of the event
-#     openSlots,    // How many slots are still available
-#     totalSlots,   // The total number of slot
-#     fee,          // The normal Quarters fee to enter the event
-#     vipFee,       // The Quarters fee to enter the event as VIP
-#     game,         // The game being played in the event
-#     tag, style    // Game-specific indicators of the event's gameplay type
-#   }
-# ]
-
-```
-
----
-
-### `GET /api/v1/events/{event_id}/participants/{user_id}`
-
-Query information about a user's participation information (or lack thereof) in an event
-
-- Scope: `events`
-
-- Code example:
-
-```sh
-
-# Get the participation information of user 789 in event 123
-curl -H "Authorization: Bearer <your-token>" \
-  https://www.poq.gg/api/v1/events/123/participants/789
-
-#  Response: { id, vip }
-#  `id`: The same as the user id
-#  `vip`: Whether the user joined the event as a VIP or not
-```
