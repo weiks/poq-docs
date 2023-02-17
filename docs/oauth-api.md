@@ -7,8 +7,7 @@ user account. This page will guide you through the integration process.
 ## Create an app
 
 First,if you don't have a PoQ account, you can create one in our site [https://www.poq.gg/login](https://www.poq.gg/login).
-Then, you need to request a Game Developer role to gain access to the Game Dashboard, please reach out our Discord server.
-
+Then, you need to request a Game Developer role to gain access to the Game Dashboard.
 Once you request have been approved, head to [https://poq.gg/dev](https://poq.gg/dev), and click 'Create' button and fill out the self-explanatory creation form:
 
 ![App creation form](medias/fill_form.png)
@@ -27,12 +26,12 @@ find your public and secret keys:
 GET https://www.poq.gg/api/v1/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email
 ```
 
-| Parameter               | Required | Description                                                              |
-| ----------------------- | -------- | ------------------------------------------------------------------------ |
-| `response_type`         | yes      | Must be `code`.                                                          |
-| `client_id`             | yes      | The value of the `client_id` field, _(see above screenshot)_.            |
-| `redirect_uri`          | yes      | The URL _(encoded)_ to redirect the users back to your app.              |
-| `scope`                 | yes      | Space delimited list of scopes                                           |
+| Parameter       | Required | Description                                                   |
+| --------------- | -------- | ------------------------------------------------------------- |
+| `response_type` | yes      | Must be `code`.                                               |
+| `client_id`     | yes      | The value of the `client_id` field, _(see above screenshot)_. |
+| `redirect_uri`  | yes      | The URL _(encoded)_ to redirect the users back to your app.   |
+| `scope`         | yes      | Space delimited list of scopes                                |
 
 **Available scopes:**
 
@@ -70,7 +69,6 @@ With the following parameters (`application/x-www-form-urlencoded`):
 | `grant_type`    | yes      | Must be `authorization_code`.                                 |
 | `code`          | yes      | Value from step (2).                                          |
 | `redirect_uri`  | yes      | Same value as step (2).                                       |
-| `code_verifier` | yes      | TODO                                       |
 
 The response's json:
 
@@ -131,7 +129,7 @@ Example response:
 ### 6. Putting it all together
 
 - Create a new development app for yourself:
-  `https://sandbox.pocketfulofquarters.com/apps/new`
+  `https://poq.gg/dev`
 - Use `http://localhost:7777` as the App Url;
 - Save the following code as `test.js`:
 
@@ -350,6 +348,7 @@ curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/wallets/@
 Transfers Quarters between your app and a user, or vice versa.
 
 - ⚠️ Important notes: ⚠️
+
   - Before your app can take Quarters from users, it will need to be vetted by
     our staff. To request verification, you can reach out on:
     https://discord.com/invite/poq.
