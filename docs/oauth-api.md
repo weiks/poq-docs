@@ -6,15 +6,15 @@ user account. This page will guide you through the integration process.
 
 ## Create an app
 
-Any `PoQ` user can create a Quarters app. Your account must have been created
-from [https://www.poq.gg/login](https://www.poq.gg/login).
-Once that is done, head to [https://apps.pocketfulofquarters.com/apps/new](https://apps.pocketfulofquarters.com/apps/new),
-and fill out the self-explanatory creation form:
+First,if you don't have a PoQ account, you can create one in our site [https://www.poq.gg/login](https://www.poq.gg/login).
+Then, you need to request a Game Developer role to gain access to the Game Dashboard, please reach out our Discord server.
+
+Once you request have been approved, head to [https://poq.gg/dev](https://poq.gg/dev), and click 'Create' button and fill out the self-explanatory creation form:
 
 ![App creation form](medias/fill_form.png)
 
 After which you'll be taken to your app's page
-_(`https://apps.pocketfulofquarters.com/apps/<your_app_id>`)_, where you will
+_(`https://poq.gg/manage_app?edit=true&id=<your_app_id>`)_, where you will
 find your public and secret keys:
 
 ![App info](medias/your_app.png)
@@ -24,16 +24,18 @@ find your public and secret keys:
 ### 1 - Send your users to the authorization page, to request the access
 
 ```CURL
-GET https://www.poq.gg/api/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email
+GET https://www.poq.gg/api/v1/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email
 ```
 
-| Parameter       | Required | Description                                                   |
-| --------------- | -------- | ------------------------------------------------------------- |
-| `response_type` | yes      | Must be `code`.                                               |
-| `client_id`     | yes      | The value of the `client_id` field, _(see above screenshot)_. |
-| `redirect_uri`  | yes      | The URL _(encoded)_ to redirect the users back to your app.   |
-| `scope`         | yes      | Space delimited list of scopes                                |
-| `state`         | no       | Use against CSRF and click-jacking.                           |
+| Parameter               | Required | Description                                                              |
+| ----------------------- | -------- | ------------------------------------------------------------------------ |
+| `response_type`         | yes      | Must be `code`.                                                          |
+| `client_id`             | yes      | The value of the `client_id` field, _(see above screenshot)_.            |
+| `redirect_uri`          | yes      | The URL _(encoded)_ to redirect the users back to your app.              |
+| `scope`                 | yes      | Space delimited list of scopes                                           |
+| `accept`                | yes      |
+| `code_challenge`        | yes      | PKCE (proof key of code exchange)                                        |
+| `code_challenge_method` | yes      | Encoding method of your PKCE (required to be encoded on "S256" method)   |
 
 **Available scopes:**
 
@@ -41,7 +43,6 @@ GET https://www.poq.gg/api/oauth2/authorize?response_type=code&client_id=YOUR_CL
 - `email`: Same as `identity`, with the additional field `{ email }`.
 - `wallet`: Allows for querying info about a user's wallet.
 - `transactions`: Allows making transactions in behalf of the user.
-- `events`: Allows querying a user's participant status in events.
 
 ### 2 - `PocketfulOfQuarters` redirects the users back to your app
 
@@ -49,11 +50,10 @@ If the user approves your authorization request, they will be redirected back to
 your `redirect_uri` with a temporary code parameter.
 
 ```CURL
-GET https://potatoheist.com/poq_auth/success?code=eyJhbGciOiJIUzI1NiIsInR5
+GET https://test-game.games.poq.gg/poq_auth/success?code=eyJhbGciOiJIUzI1NiIsInR5
 ```
 
-> `redirect_uri` must be in `https`. Non-secure URIs can only be used for
-> testing and will not be supported in production.
+> `redirect_uri` is an auto-generated url for your game
 
 ### 3 - Request the access token
 
@@ -73,6 +73,7 @@ With the following parameters (`application/x-www-form-urlencoded`):
 | `grant_type`    | yes      | Must be `authorization_code`.                                 |
 | `code`          | yes      | Value from step (2).                                          |
 | `redirect_uri`  | yes      | Same value as step (2).                                       |
+| `code_verifier` | yes      | TODO                                       |
 
 The response's json:
 
@@ -116,7 +117,7 @@ With the following parameters (`application/x-www-form-urlencoded`):
 After you have a valid access token, you can make your first API call:
 
 ```curl
-curl https://www.poq.gg/api/v1/users/me -H 'Authorization: Bearer <your_access_token>'
+curl https://www.poq.gg/api/v1/users/@me -H 'Authorization: Bearer <your_access_token>'
 ```
 
 Example response:
