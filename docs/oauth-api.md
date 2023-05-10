@@ -232,17 +232,6 @@ node test.js
 }
 ```
 
-- When you are ready to go to production, please repeat these steps but:
-
-  a) Use `https://apps.pocketfulofquarters.com/apps/new` to create a production
-  app;
-
-  b) In demo.js, replace LINK with:
-
-```javascript
-const LINK = "https://www.poq.gg"; // for development, you can use https://s2w-dev-firebase.herokuapp.com/
-```
-
 ## Integration via Authorization Flow with Proof Key for Code Exchange (PKCE)
 
 If your application has no server component and is a public application (native
