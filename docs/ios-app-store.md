@@ -23,9 +23,9 @@ settings being improperly set
     - if it is incorrect go back and check
       `ProjectSettings/ProjectSettings.asset`
 
-    //ss
+    // TODO: add screen-shot
 5. Click on + Capability and add "Associated Domains" put in
-    `applinks:youruniqueidentifier.games.poq.gg` //ss
+    `applinks:youruniqueidentifier.games.poq.gg` // TODO: add screen-shot
 6. You should now be able to run the app
 
 ## Creating Build For App Store
