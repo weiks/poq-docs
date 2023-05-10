@@ -4,7 +4,7 @@ Welcome, game developers!
 
 ⭐⭐ Please star this repo ⭐⭐
 
-> Learn more about Quarters at our [main site](https://pocketfulofquarters.com/)
+> Learn more about Quarters at our [main site](https://www.poq.gg/)
 >
 > Use the [POQ Unity
 > SDK](https://assetstore.unity.com/packages/tools/integration/quarterssdk-226386)
