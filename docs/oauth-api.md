@@ -1,24 +1,31 @@
 # POQ - OAuth API
 
-The OAuth API allows developers to use the OAuth2 protocol and grant their 3rd
+The OAuth API allows developers to use the OAuth2 protocol and grants their 3rd
 party application full or partial access to a `Pocketful Of Quarters` (`PoQ`)
 user account. This page will guide you through the integration process.
 
-## Create an app
+## Create a Quarters application
 
-First,if you don't have a PoQ account, you can create one in our site
-[https://www.poq.gg/login](https://www.poq.gg/login). Then, you need to request
-a Game Developer role to gain access to the Game Dashboard. Once you request
-have been approved, head to [https://poq.gg/dev](https://poq.gg/dev), and click
-'Create' button and fill out the self-explanatory creation form:
+- If you don't have a PoQ account yet, create one at
+  [https://www.poq.gg/login](https://www.poq.gg/login);
+- You will also need to request the Game Developer role to gain access to the
+  Game Dashboard. For this, head towards [your user
+  profile](https://www.poq.gg/profile):
 
-![App creation form](medias/fill_form.png)
+  ![Request access](./medias/request_developer_access.png)
+- Once your request have been approved, head to
+[https://poq.gg/dev](https://poq.gg/dev), click the 'Create' button and fill out
+the self-explanatory creation form:
 
-After which you'll be taken to your app's page
+  ![App creation form](medias/fill_form.png)
+
+- Finally, you will be taken to your app's page:
 _(`https://poq.gg/manage_app?edit=true&id=<your_app_id>`)_, where you will find
 your public and secret keys:
 
-![App info](medias/your_app.png)
+  ![App info](medias/your_app.png)
+
+---
 
 ## Integration via Authorization Flow
 
