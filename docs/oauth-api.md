@@ -147,13 +147,13 @@ const got = require("got").default;
 
 const CLIENT_ID = ""; // insert your client_id here
 const CLIENT_SECRET = ""; // insert your client_secret here
-const LINK = "https://s2w-dev-firebase.herokuapp.com/"; // for production, please use https://www.poq.gg
-const SCOPE = "identity";
+const LINK = "https://poq.gg/";
+const SCOPE = "identity email transactions wallet";
 const PORT = 7777;
 
 const demo = `http://localhost:${PORT}`;
 
-const url = new URL("/api/oauth2/authorize", LINK);
+const url = new URL("/oauth2/authorize", LINK);
 url.searchParams.set("response_type", "code");
 url.searchParams.set("scope", SCOPE);
 url.searchParams.set("redirect_uri", demo);
