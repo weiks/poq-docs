@@ -6,15 +6,17 @@ user account. This page will guide you through the integration process.
 
 ## Create an app
 
-First,if you don't have a PoQ account, you can create one in our site [https://www.poq.gg/login](https://www.poq.gg/login).
-Then, you need to request a Game Developer role to gain access to the Game Dashboard.
-Once you request have been approved, head to [https://poq.gg/dev](https://poq.gg/dev), and click 'Create' button and fill out the self-explanatory creation form:
+First,if you don't have a PoQ account, you can create one in our site
+[https://www.poq.gg/login](https://www.poq.gg/login). Then, you need to request
+a Game Developer role to gain access to the Game Dashboard. Once you request
+have been approved, head to [https://poq.gg/dev](https://poq.gg/dev), and click
+'Create' button and fill out the self-explanatory creation form:
 
 ![App creation form](medias/fill_form.png)
 
 After which you'll be taken to your app's page
-_(`https://poq.gg/manage_app?edit=true&id=<your_app_id>`)_, where you will
-find your public and secret keys:
+_(`https://poq.gg/manage_app?edit=true&id=<your_app_id>`)_, where you will find
+your public and secret keys:
 
 ![App info](medias/your_app.png)
 
@@ -101,9 +103,8 @@ With the following parameters (`application/x-www-form-urlencoded`):
 | `refresh_token` | yes      | `refresh_token` received from step (3).                       |
 | `scope`         | no       | Same scope as initial, or restricted.                         |
 
-> **Note**:
-> Refresh tokens are valid for a duration of 6 months. Beyond that, the user
-> will need to go through the authorization flow again.
+> **Note**: Refresh tokens are valid for a duration of 6 months. Beyond that,
+> the user will need to go through the authorization flow again.
 
 (Same response as described in step (3)).
 
@@ -128,8 +129,7 @@ Example response:
 
 ### 6. Putting it all together
 
-- Create a new development app for yourself:
-  `https://poq.gg/dev`
+- Create a new development app for yourself: `https://poq.gg/dev`
 - Use `http://localhost:7777` as the App Url;
 - Save the following code as `test.js`:
 
@@ -227,7 +227,8 @@ node test.js
 
 - When you are ready to go to production, please repeat these steps but:
 
-  a) Use `https://apps.pocketfulofquarters.com/apps/new` to create a production app;
+  a) Use `https://apps.pocketfulofquarters.com/apps/new` to create a production
+  app;
 
   b) In demo.js, replace LINK with:
 
@@ -249,15 +250,16 @@ credentials
 
 Your application should generate a cryptographically random string between 43
 and 128 characters that can only contain standard ASCII latin letters (both
-upper case and lower case allowed), digits, underscores, hyphens and tildes.
-It is advised to generate such a string with a cryptographically random number
+upper case and lower case allowed), digits, underscores, hyphens and tildes. It
+is advised to generate such a string with a cryptographically random number
 generator with at least 256-bits of entropy. We will call this string **code
 verifier** from here on out.
 
 Next to generate the code challenge, the string must be hashed using the SHA256
 algorithm. Then the resulted hash must be encoded using
 [base64url](https://datatracker.ietf.org/doc/html/rfc4648#section-5) encoding.
-(standard base64 encoding with + and / swapped for - and \_ and no padding at the end)
+(standard base64 encoding with + and / swapped for - and \_ and no padding at
+the end)
 
 ### 1 - Send your users to the authorization page, to request the access
 
@@ -276,13 +278,14 @@ the query parameters: `code_challenge` and `code_challenge_method`
 ### 2 - PoQ redirects the user back to your app
 
 This step is identical to step 2 without PKCE, they will also be redirected with
-code and state (if present in step 1) or error and state (if something went wrong)
+code and state (if present in step 1) or error and state (if something went
+wrong)
 
 ### 3 - Request the access token
 
-Again very similar to step 3 without PKCE, but instead of sending `client_secret`
-the code verifier, as generated in step 0, is sent. (Reminder, the body must be
-encoded with `application/x-www-form-urlencoded`)
+Again very similar to step 3 without PKCE, but instead of sending
+`client_secret` the code verifier, as generated in step 0, is sent. (Reminder,
+the body must be encoded with `application/x-www-form-urlencoded`)
 
 | Parameter       | Required | Description                                         |
 | --------------- | -------- | --------------------------------------------------- |
