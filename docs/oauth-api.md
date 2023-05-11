@@ -1,22 +1,31 @@
 # POQ - OAuth API
 
-The OAuth API allows developers to use the OAuth2 protocol and grant their 3rd
+The OAuth API allows developers to use the OAuth2 protocol and grants their 3rd
 party application full or partial access to a `Pocketful Of Quarters` (`PoQ`)
 user account. This page will guide you through the integration process.
 
-## Create an app
+## Create a Quarters application
 
-First,if you don't have a PoQ account, you can create one in our site [https://www.poq.gg/login](https://www.poq.gg/login).
-Then, you need to request a Game Developer role to gain access to the Game Dashboard.
-Once you request have been approved, head to [https://poq.gg/dev](https://poq.gg/dev), and click 'Create' button and fill out the self-explanatory creation form:
+- If you don't have a PoQ account yet, create one at
+  [https://www.poq.gg/login](https://www.poq.gg/login);
+- You will also need to request the Game Developer role to gain access to the
+  Game Dashboard. For this, head towards [your user
+  profile](https://www.poq.gg/profile):
 
-![App creation form](medias/fill_form.png)
+  ![Request access](./medias/request_developer_access.png)
+- Once your request have been approved, head to
+[https://poq.gg/dev](https://poq.gg/dev), click the 'Create' button and fill out
+the self-explanatory creation form:
 
-After which you'll be taken to your app's page
-_(`https://poq.gg/manage_app?edit=true&id=<your_app_id>`)_, where you will
-find your public and secret keys:
+  ![App creation form](medias/fill_form.png)
 
-![App info](medias/your_app.png)
+- Finally, you will be taken to your app's page:
+_(`https://poq.gg/manage_app?edit=true&id=<your_app_id>`)_, where you will find
+your public and secret keys:
+
+  ![App info](medias/your_app.png)
+
+---
 
 ## Integration via Authorization Flow
 
@@ -101,9 +110,8 @@ With the following parameters (`application/x-www-form-urlencoded`):
 | `refresh_token` | yes      | `refresh_token` received from step (3).                       |
 | `scope`         | no       | Same scope as initial, or restricted.                         |
 
-> **Note**:
-> Refresh tokens are valid for a duration of 6 months. Beyond that, the user
-> will need to go through the authorization flow again.
+> **Note**: Refresh tokens are valid for a duration of 6 months. Beyond that,
+> the user will need to go through the authorization flow again.
 
 (Same response as described in step (3)).
 
@@ -128,8 +136,7 @@ Example response:
 
 ### 6. Putting it all together
 
-- Create a new development app for yourself:
-  `https://poq.gg/dev`
+- Create a new development app for yourself: `https://poq.gg/dev`
 - Use `http://localhost:7777` as the App Url;
 - Save the following code as `test.js`:
 
@@ -140,13 +147,13 @@ const got = require("got").default;
 
 const CLIENT_ID = ""; // insert your client_id here
 const CLIENT_SECRET = ""; // insert your client_secret here
-const LINK = "https://s2w-dev-firebase.herokuapp.com/"; // for production, please use https://www.poq.gg
-const SCOPE = "identity";
+const LINK = "https://poq.gg/";
+const SCOPE = "identity email transactions wallet";
 const PORT = 7777;
 
 const demo = `http://localhost:${PORT}`;
 
-const url = new URL("/api/oauth2/authorize", LINK);
+const url = new URL("/oauth2/authorize", LINK);
 url.searchParams.set("response_type", "code");
 url.searchParams.set("scope", SCOPE);
 url.searchParams.set("redirect_uri", demo);
@@ -225,16 +232,6 @@ node test.js
 }
 ```
 
-- When you are ready to go to production, please repeat these steps but:
-
-  a) Use `https://apps.pocketfulofquarters.com/apps/new` to create a production app;
-
-  b) In demo.js, replace LINK with:
-
-```javascript
-const LINK = "https://www.poq.gg"; // for development, you can use https://s2w-dev-firebase.herokuapp.com/
-```
-
 ## Integration via Authorization Flow with Proof Key for Code Exchange (PKCE)
 
 If your application has no server component and is a public application (native
@@ -249,15 +246,16 @@ credentials
 
 Your application should generate a cryptographically random string between 43
 and 128 characters that can only contain standard ASCII latin letters (both
-upper case and lower case allowed), digits, underscores, hyphens and tildes.
-It is advised to generate such a string with a cryptographically random number
+upper case and lower case allowed), digits, underscores, hyphens and tildes. It
+is advised to generate such a string with a cryptographically random number
 generator with at least 256-bits of entropy. We will call this string **code
 verifier** from here on out.
 
 Next to generate the code challenge, the string must be hashed using the SHA256
 algorithm. Then the resulted hash must be encoded using
 [base64url](https://datatracker.ietf.org/doc/html/rfc4648#section-5) encoding.
-(standard base64 encoding with + and / swapped for - and \_ and no padding at the end)
+(standard base64 encoding with + and / swapped for - and \_ and no padding at
+the end)
 
 ### 1 - Send your users to the authorization page, to request the access
 
@@ -276,13 +274,14 @@ the query parameters: `code_challenge` and `code_challenge_method`
 ### 2 - PoQ redirects the user back to your app
 
 This step is identical to step 2 without PKCE, they will also be redirected with
-code and state (if present in step 1) or error and state (if something went wrong)
+code and state (if present in step 1) or error and state (if something went
+wrong)
 
 ### 3 - Request the access token
 
-Again very similar to step 3 without PKCE, but instead of sending `client_secret`
-the code verifier, as generated in step 0, is sent. (Reminder, the body must be
-encoded with `application/x-www-form-urlencoded`)
+Again very similar to step 3 without PKCE, but instead of sending
+`client_secret` the code verifier, as generated in step 0, is sent. (Reminder,
+the body must be encoded with `application/x-www-form-urlencoded`)
 
 | Parameter       | Required | Description                                         |
 | --------------- | -------- | --------------------------------------------------- |
