@@ -1,8 +1,8 @@
-# POQ - OAuth API
+# POQ - OAuth2 API
 
-The OAuth API allows developers to use the OAuth2 protocol and grants their 3rd
-party application full or partial access to a `Pocketful Of Quarters` (`PoQ`)
-user account. This page will guide you through the integration process.
+This OAuth2 API allows game developers to have users delegate access to their
+`Pocketful Of Quarters` (`PoQ`) user account. This page will guide you through
+the integration process.
 
 ## Create a Quarters application
 
@@ -31,8 +31,8 @@ your public and secret keys:
 
 ### 1 - Send your users to the authorization page, to request the access
 
-```CURL
-GET https://www.poq.gg/api/v1/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email
+```shell
+https://www.poq.gg/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email%20wallet%20transactions
 ```
 
 | Parameter       | Required | Description                                                   |
@@ -54,19 +54,22 @@ GET https://www.poq.gg/api/v1/oauth2/authorize?response_type=code&client_id=YOUR
 If the user approves your authorization request, they will be redirected back to
 your `redirect_uri` with a temporary code parameter.
 
-```CURL
-GET https://test-game.games.poq.gg/poq_auth/success?code=eyJhbGciOiJIUzI1NiIsInR5
+```shell
+https://test-game.games.poq.gg/poq_auth/success?code=eyJhbGciOiJIUzI1NiIsInR5
 ```
 
-> `redirect_uri` is an auto-generated url for your game
+> In this example, `redirect_uri` is the auto-generated subdomain for your game.
 
 ### 3 - Request the access token
 
 You can now use the `code` passed to your `redirect_uri` page to request the
 `PoQ` access token from your backend.
 
-```CURL
-POST https://www.poq.gg/api/oauth2/token
+```SHELL
+curl -X POST \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>&grant_type=authorization_code&redirect_uri=<REDIRECT_URI>&code=eyJhbGciOiJIUzI1NiIsInR5" \
+  https://www.poq.gg/api/oauth2/token
 ```
 
 With the following parameters (`application/x-www-form-urlencoded`):
@@ -87,7 +90,7 @@ The response's json:
   expires_in: 3600,
   access_token: "the_new_access_token",
   refresh_token: "the_new_refresh_token",
-  scope: "scope_requested_on_step_1"
+  scope:"email,wallet,transactions",
 }
 ```
 
@@ -96,8 +99,11 @@ The response's json:
 You can get a new `access_token` when the previous one expires, by calling the
 same endpoint:
 
-```CURL
-POST https://www.poq.gg/api/oauth2/token
+```shell
+curl -X POST \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>&grant_type=refresh_token&refresh_token=<REFRESH_TOKEN>" \
+  https://www.poq.gg/api/oauth2/token
 ```
 
 With the following parameters (`application/x-www-form-urlencoded`):
@@ -119,8 +125,8 @@ With the following parameters (`application/x-www-form-urlencoded`):
 
 After you have a valid access token, you can make your first API call:
 
-```curl
-curl https://www.poq.gg/api/v1/users/@me -H 'Authorization: Bearer <your_access_token>'
+```shell
+curl https://www.poq.gg/api/v1/users/me -H 'Authorization: Bearer <your_access_token>'
 ```
 
 Example response:
@@ -131,104 +137,6 @@ Example response:
   gamerTag: "User1",
   avatar: "ccc954.png", // Full URL: https://api.poq.gg/images/${id}/${avatar}
   email: "user1@example.com", // email scope only
-}
-```
-
-### 6. Putting it all together
-
-- Create a new development app for yourself: `https://poq.gg/dev`
-- Use `http://localhost:7777` as the App Url;
-- Save the following code as `test.js`:
-
-```javascript
-const { URL } = require("url");
-const express = require("express");
-const got = require("got").default;
-
-const CLIENT_ID = ""; // insert your client_id here
-const CLIENT_SECRET = ""; // insert your client_secret here
-const LINK = "https://poq.gg/";
-const SCOPE = "identity email transactions wallet";
-const PORT = 7777;
-
-const demo = `http://localhost:${PORT}`;
-
-const url = new URL("/oauth2/authorize", LINK);
-url.searchParams.set("response_type", "code");
-url.searchParams.set("scope", SCOPE);
-url.searchParams.set("redirect_uri", demo);
-url.searchParams.set("client_id", CLIENT_ID);
-
-const main = `
-<html>
-  <head>
-  </head>
-  <body>
-    <a href="${url.toString()}">Connect</a>
-  </body>
-</html>
-`;
-
-const app = express();
-
-async function getInfo(code) {
-  const response1 = await got.post("api/oauth2/token", {
-    prefixUrl: LINK,
-    form: {
-      code,
-      grant_type: "authorization_code",
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      redirect_uri: demo,
-    },
-    responseType: "json",
-  });
-
-  const response2 = await got.get("api/v1/users/me", {
-    prefixUrl: LINK,
-    headers: {
-      Authorization: `Bearer ${response1.body.access_token}`,
-    },
-    responseType: "json",
-  });
-
-  return response2.body;
-}
-
-app.get("/", (req, res) => {
-  if (!req.query.code) {
-    res.setHeader("Content-Type", "text/html; charset=UTF-8");
-    return res.status(200).send(main);
-  } else {
-    getInfo(req.query.code)
-      .then((response) => res.send(response))
-      .catch((error) => res.send(error));
-  }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on ${demo}`);
-});
-```
-
-- Cut and paste the `client_id` and `client_secret` from the app page, into the
-  code above;
-- Install got and express and then run the test code;
-
-```javascript
-npm install got express
-node test.js
-```
-
-- Open `http://localhost:7777` in your browser, and click "connect". Authorize
-  the app, and it will show the results of the API call that look something like
-  this:
-
-```json
-{
-  "id": "XlPgcK8nfObx9wdIz2NU6087pfp2",
-  "gamerTag": "Mike2001",
-  "avatar": "a51bed3a9b527fe45e9d65c23aa76ece.png"
 }
 ```
 
@@ -307,7 +215,7 @@ Typical failed call of an endpoint:
 }
 ```
 
-### `GET /api/v1/users/@me`
+### `GET /api/v1/users/me`
 
 Fetches a user's account information.
 
@@ -319,7 +227,7 @@ curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/users/me
 # Response: {
 #   "id": "XlPgcK8nfObx9wdIz2NU6087pfp2",
 #   "gamerTag": "Mike2001",
-#   "avatar": "a51bed3a9b527fe45e9d65c23aa76ece.png",
+#   "avatar": <base64 encoded png>,
 #   "email": "user@isp.dom"
 # }
 ```
