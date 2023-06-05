@@ -12,6 +12,8 @@ Welcome, game developers!
   [POQ Unity SDK](https://assetstore.unity.com/packages/tools/integration/quarterssdk-226386)
   to start integrating the Quarters in games on the Unity platform. More info in
   [the Unity integration docs](./docs/unity-sdk-integration.md).
+- If you have a server, you can also use the [Game API](./docs/game-api.md) to
+  reward users with Quarters.
 
 ## Overview
 
