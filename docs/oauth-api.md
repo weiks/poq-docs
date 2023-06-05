@@ -31,8 +31,8 @@ your public and secret keys:
 
 ### 1 - Send your users to the authorization page, to request the access
 
-```CURL
-GET https://www.poq.gg/api/v1/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email
+```shell
+https://www.poq.gg/oauth2/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URL&scope=email%20wallet%20transactions
 ```
 
 | Parameter       | Required | Description                                                   |
@@ -54,19 +54,22 @@ GET https://www.poq.gg/api/v1/oauth2/authorize?response_type=code&client_id=YOUR
 If the user approves your authorization request, they will be redirected back to
 your `redirect_uri` with a temporary code parameter.
 
-```CURL
-GET https://test-game.games.poq.gg/poq_auth/success?code=eyJhbGciOiJIUzI1NiIsInR5
+```shell
+https://test-game.games.poq.gg/poq_auth/success?code=eyJhbGciOiJIUzI1NiIsInR5
 ```
 
-> `redirect_uri` is an auto-generated url for your game
+> In this example, `redirect_uri` is the auto-generated subdomain for your game.
 
 ### 3 - Request the access token
 
 You can now use the `code` passed to your `redirect_uri` page to request the
 `PoQ` access token from your backend.
 
-```CURL
-POST https://www.poq.gg/api/oauth2/token
+```SHELL
+curl -X POST \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>&grant_type=authorization_code&redirect_uri=<REDIRECT_URI>&code=eyJhbGciOiJIUzI1NiIsInR5" \
+  https://www.poq.gg/api/oauth2/token
 ```
 
 With the following parameters (`application/x-www-form-urlencoded`):
@@ -87,7 +90,7 @@ The response's json:
   expires_in: 3600,
   access_token: "the_new_access_token",
   refresh_token: "the_new_refresh_token",
-  scope: "scope_requested_on_step_1"
+  scope:"email,wallet,transactions",
 }
 ```
 
@@ -96,8 +99,11 @@ The response's json:
 You can get a new `access_token` when the previous one expires, by calling the
 same endpoint:
 
-```CURL
-POST https://www.poq.gg/api/oauth2/token
+```shell
+curl -X POST \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>&grant_type=refresh_token&refresh_token=<REFRESH_TOKEN>" \
+  https://www.poq.gg/api/oauth2/token
 ```
 
 With the following parameters (`application/x-www-form-urlencoded`):
@@ -119,8 +125,8 @@ With the following parameters (`application/x-www-form-urlencoded`):
 
 After you have a valid access token, you can make your first API call:
 
-```curl
-curl https://www.poq.gg/api/v1/users/@me -H 'Authorization: Bearer <your_access_token>'
+```shell
+curl https://www.poq.gg/api/v1/users/me -H 'Authorization: Bearer <your_access_token>'
 ```
 
 Example response:
@@ -209,7 +215,7 @@ Typical failed call of an endpoint:
 }
 ```
 
-### `GET /api/v1/users/@me`
+### `GET /api/v1/users/me`
 
 Fetches a user's account information.
 
@@ -221,7 +227,7 @@ curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/users/me
 # Response: {
 #   "id": "XlPgcK8nfObx9wdIz2NU6087pfp2",
 #   "gamerTag": "Mike2001",
-#   "avatar": "a51bed3a9b527fe45e9d65c23aa76ece.png",
+#   "avatar": <base64 encoded png>,
 #   "email": "user@isp.dom"
 # }
 ```
