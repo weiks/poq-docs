@@ -126,7 +126,7 @@ With the following parameters (`application/x-www-form-urlencoded`):
 After you have a valid access token, you can make your first API call:
 
 ```shell
-curl https://www.poq.gg/api/v1/users/me -H 'Authorization: Bearer <your_access_token>'
+curl https://www.poq.gg/api/v2/oauth2/users/me -H 'Authorization: Bearer <your_access_token>'
 ```
 
 Example response:
@@ -204,7 +204,7 @@ the body must be encoded with `application/x-www-form-urlencoded`)
 Nothing changes about refreshing the access token or making requests with the
 acquired access token.
 
-## Endpoints available - v1
+## Endpoints available - v2
 
 Typical failed call of an endpoint:
 
@@ -215,14 +215,14 @@ Typical failed call of an endpoint:
 }
 ```
 
-### `GET /api/v1/users/me`
+### `GET /api/v2/oauth2/users/me`
 
 Fetches a user's account information.
 
 - Scope: `identity` || `email`
 
 ```sh
-curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/users/me
+curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v2/oauth2/users/me
 
 # Response: {
 #   "id": "XlPgcK8nfObx9wdIz2NU6087pfp2",
@@ -234,14 +234,14 @@ curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/users/me
 
 ---
 
-### `GET /api/v1/wallets/@me`
+### `GET /api/v2/oauth2/wallets/@me`
 
 Fetches a user's wallet information.
 
 - Scope: `wallet`
 
 ```sh
-curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/wallets/@me
+curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v2/oauth2/wallets/@me
 
 # Response: {
 #   "balance": 1000,
@@ -250,26 +250,17 @@ curl -H "Authorization: Bearer <your-token>" https://www.poq.gg/api/v1/wallets/@
 
 ---
 
-### `POST /api/v1/transactions`
+### `POST /api/v2/oauth2/transactions`
 
-Transfers Quarters between your app and a user, or vice versa.
+Transfers Quarters from a user's wallet into your app's wallet.
 
-- ⚠️ Important notes: ⚠️
+- Scope: `transactions`;
 
-  - Before your app can take Quarters from users, it will need to be vetted by
-    our staff. To request verification, you can reach out on:
-    https://discord.com/invite/poq.
-
-- Scope:
-
-  - user -> app: `transactions`;
-  - app -> user: none;
-
-- Parameters:
+#### Parameters:
 
 | Name          | Type    | Description                                            |
 | ------------- | ------- | ------------------------------------------------------ |
-| `creditUser`  | integer | The Quarters to transfer to the user. Can be negative. |
+| `amount`      | integer | The amount of Quarters to transfer                     |
 | `description` | string  | (optional) A label for the transaction.                |
 |               |         |                                                        |
 
@@ -279,20 +270,12 @@ Transfers Quarters between your app and a user, or vice versa.
 # /!\ On Windows, escape the double-quotes around the payload's fields
 # /!\ On Windows 10, the powershell command `curl` isn't the "actual" curl
 
-# Give 20 Quarters to a user
+# Take 20 Quarters from a user
 curl -X POST \
   -H "Authorization: Bearer <your-token>" \
   -H "Content-Type: application/json" \
-  -d '{"creditUser":20}' \
-  https://www.poq.gg/api/v1/transactions
-
-
-# Take 50 Quarters from a user
-curl -X POST \
-  -H "Authorization: Bearer <your-token>" \
-  -H "Content-Type: application/json" \
-  -d '{"creditUser":-50, "description":"Entry fee for ..."}' \
-  https://www.poq.gg/api/v1/transactions
+  -d '{ "amount": 20, "description": "Entry fee for ..." }' \
+  https://www.poq.gg/api/v2/oauth2/transactions
 
 #  Response: { id }
 #  `id`: Quarters transaction id (currently useless)
