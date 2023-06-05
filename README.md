@@ -4,6 +4,10 @@ Welcome, game developers!
 
 ⭐⭐ Please star this repo ⭐⭐
 
+> **Warning**: This version of our API is insecure and deprecated. If you are
+> creating a new game, use subsequent versions instead. If you already have
+> integrated your game with v1, it is strongly advised that you migrate.
+
 > **Note** Learn more about Quarters on our [main website](https://www.poq.gg/)
 
 - Use the [POQ OAuth API](docs/oauth-api.md) to start integrating the Quarters

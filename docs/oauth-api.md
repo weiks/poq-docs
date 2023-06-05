@@ -4,6 +4,10 @@ This OAuth2 API allows game developers to have users delegate access to their
 `Pocketful Of Quarters` (`PoQ`) user account. This page will guide you through
 the integration process.
 
+> **Warning**: This version of our API is insecure and deprecated. If you are
+> creating a new game, use subsequent versions instead. If you already have
+> integrated your game with v1, it is strongly advised that you migrate.
+
 ## Create a Quarters application
 
 - If you don't have a PoQ account yet, create one at
