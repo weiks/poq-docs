@@ -38,7 +38,8 @@ If you have followed the previous steps, you have just created your **Quarters A
 
   <img width="757" alt="image" src="https://github.com/weiks/poq-docs/assets/36847481/791b7423-2e39-4d4b-ae7a-4a806c55a053">
 
-
+> **NOTE**
+> You can test your integration by logging into your game using the same Quarters account you used to set up your app. Once your game is approved to go live, other Quarters accounts can send Quarters to your registered wallet as well.
 ---
 
 ## Integration via Authorization Flow
