@@ -25,6 +25,20 @@ your public and secret keys:
   <img width="547" alt="Screenshot 2023-09-05 at 15 39 16" src="https://github.com/weiks/poq-docs/assets/36847481/48e574ff-ac64-4ee6-8e14-284820beb62c">
 
 
+## How to Submit Your App for Review
+
+If you have followed the previous steps, you have just created your **Quarters Application**. Once you have completed the setup of your game and are ready to go live, you will need to submit your app for review and approval before it becomes **LIVE**.
+
+- In your application's admin panel, click on the _'View Submissions'_ button
+
+  <img width="547" alt="Screenshot 2023-09-05 at 15 39 16" src="https://github.com/weiks/poq-docs/assets/36847481/48e574ff-ac64-4ee6-8e14-284820beb62c">
+
+- Once you're in the Reviews panel, create a submission by clicking the _'Submit APP NAME'_ button
+- Your game is now in the process of being reviewed, and you will be notified of its progress through this panel. If you wish to leave a message for the administrator, you can do so:
+
+  <img width="757" alt="image" src="https://github.com/weiks/poq-docs/assets/36847481/791b7423-2e39-4d4b-ae7a-4a806c55a053">
+
+
 ---
 
 ## Integration via Authorization Flow
