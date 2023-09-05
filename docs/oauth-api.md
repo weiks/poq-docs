@@ -8,23 +8,38 @@ the integration process.
 
 - If you don't have a PoQ account yet, create one at
   [https://www.poq.gg/login](https://www.poq.gg/login);
-- You will also need to request the Game Developer role to gain access to the
-  Game Dashboard. For this, head towards [your user
-  profile](https://www.poq.gg/profile):
+- Head towards [your user
+  profile](https://www.poq.gg/profile) and click _'Enter Dev Portal'_ at the bottom of the section:
 
-  ![Request access](./medias/request_developer_access.png)
-- Once your request have been approved, head to
-[https://poq.gg/dev](https://poq.gg/dev), click the 'Create' button and fill out
+    <img width="416" alt="image" src="https://github.com/weiks/poq-docs/assets/36847481/c4b936d4-552e-4040-bebc-78b705113c65">
+
+- Once you click the button you will be redirected to your [Dev Portal](https://poq.gg/dev), click the _'Create'_ button and fill out
 the self-explanatory creation form:
 
-  ![App creation form](medias/fill_form.png)
+    <img width="573" alt="image" src="https://github.com/weiks/poq-docs/assets/36847481/37e64b97-f140-4398-a4aa-8558c55686e6">
 
 - Finally, you will be taken to your app's page:
-_(`https://poq.gg/manage_app?edit=true&id=<your_app_id>`)_, where you will find
+_(`https://poq.gg/manage_app/<your_app_id>`)_, where you will find
 your public and secret keys:
 
-  ![App info](medias/your_app.png)
+  <img width="547" alt="Screenshot 2023-09-05 at 15 39 16" src="https://github.com/weiks/poq-docs/assets/36847481/48e574ff-ac64-4ee6-8e14-284820beb62c">
 
+
+## How to Submit Your App for Review
+
+If you have followed the previous steps, you have just created your **Quarters Application**. Once you have completed the setup of your game and are ready to go live, you will need to submit your app for review and approval before it becomes **LIVE**.
+
+- In your application's admin panel, click on the _'View Submissions'_ button
+
+  <img width="547" alt="Screenshot 2023-09-05 at 15 39 16" src="https://github.com/weiks/poq-docs/assets/36847481/48e574ff-ac64-4ee6-8e14-284820beb62c">
+
+- Once you're in the Reviews panel, create a submission by clicking the _'Submit APP NAME'_ button
+- Your game is now in the process of being reviewed, and you will be notified of its progress through this panel. If you wish to leave a message for the administrator, you can do so:
+
+  <img width="757" alt="image" src="https://github.com/weiks/poq-docs/assets/36847481/791b7423-2e39-4d4b-ae7a-4a806c55a053">
+
+> **NOTE**
+> You can test your integration by logging into your game using the same Quarters account you used to set up your app. Once your game is approved to go live, other Quarters accounts can send Quarters to your registered wallet as well.
 ---
 
 ## Integration via Authorization Flow
